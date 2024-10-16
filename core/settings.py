@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-import dj_database_url
+import dj_database_url # type: ignore
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -65,11 +65,17 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database configuration
 DATABASES = {
     'default': dj_database_url.config(
-        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
+        default=f'sqlite:///{os.path.join(BASE_DIR, "db.sqlite3")}',
         conn_max_age=600,
-        ssl_require=os.getenv('DATABASE_SSL', 'False') == 'True'
+        ssl_require=False  # Set this to True if using SSL for your production database
     )
 }
+
+if 'DATABASE_URL' not in os.environ:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 
 # Extra config
 AUTH_USER_MODEL = 'users.Account'
