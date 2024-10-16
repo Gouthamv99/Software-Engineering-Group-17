@@ -1,13 +1,15 @@
 {
-    "builds": [{
-      "src": "Software-Engineering-Group-17/manage.py",
-      "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
-    }],
+    "builds": [
+      {
+        "src": "manage.py",
+        "use": "@vercel/python",
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+      }
+    ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "Software-Engineering-Group-17/manage.py"
+        "dest": "manage.py"
       }
     ]
   }
