@@ -71,11 +71,7 @@ DATABASES = {
     )
 }
 
-if 'DATABASE_URL' not in os.environ:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+
 
 # Extra config
 AUTH_USER_MODEL = 'users.Account'
