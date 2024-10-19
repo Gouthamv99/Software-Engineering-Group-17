@@ -127,3 +127,4 @@ wEnv/
 
 # Local SSL certificates
 certs/
+.vercel
