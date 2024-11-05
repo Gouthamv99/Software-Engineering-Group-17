@@ -112,10 +112,10 @@ wEnv/
 .mypy_cache/
 
 .DS_Store
-*.sqlite3
+# *.sqlite3
 # media/
 *.pyc
-*.db
+# *.db
 *.pid
 
 # Ignore Django Migrations in Development if you are working on team
@@ -127,4 +127,3 @@ wEnv/
 
 # Local SSL certificates
 certs/
-.vercel

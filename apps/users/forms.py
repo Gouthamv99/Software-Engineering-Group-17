@@ -1,5 +1,5 @@
 from django import forms
-from apps.users.models import Account, Event, Speaker, Venue, Comment, Ticket, Job
+from apps.users.models import Account, Event, Speaker, Venue, Comment, Ticket, Job, Forum
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
 
@@ -105,6 +105,11 @@ class VenueForm(forms.ModelForm):
                 'step': '1',
             }),
         }
+
+class ForumForm(forms.ModelForm):
+    class Meta:
+        model  =  Forum
+        fields =  ('name', 'details', 'image',)
 
 class CommentForm(forms.ModelForm):
     class Meta:

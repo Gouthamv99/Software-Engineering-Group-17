@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from apps.users.forms import LoginForm, RegistrationForm, EventForm, VenueForm, SpeakerForm, CommentForm, TicketForm, JobForm
+from apps.users.forms import LoginForm, RegistrationForm, EventForm, VenueForm, SpeakerForm, CommentForm, TicketForm, JobForm, ForumForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from apps.users.models import Account, Event, Venue, Speaker, Ticket, Job
+from apps.users.models import Account, Event, Venue, Speaker, Ticket, Job, Forum
 from django.core.paginator import Paginator
 import random
 from django.db.models import Q
@@ -430,19 +430,19 @@ def delete_venue(request, slug=None):
 # forums
 def forums(request):
     query = request.GET.get("query", "")
-    all_venues = Venue.objects.all().order_by('-created_at')
+    all_forums = Forum.objects.all().order_by('-created_at')
     if query:
-        all_venues = all_venues.filter(Q(title__icontains=query)|Q(details__icontains=query))
-    total_results = all_venues.count()
+        all_forums = all_forums.filter(Q(title__icontains=query)|Q(details__icontains=query))
+    total_results = all_forums.count()
     page = request.GET.get('page', 1)
     results_per_page = 5
-    paginator = Paginator(all_venues, results_per_page)
-    page_venues = paginator.page(page)
+    paginator = Paginator(all_forums, results_per_page)
+    page_forums = paginator.page(page)
     page_numbers = paginator.get_elided_page_range(page, on_each_side=2, on_ends=3)
-    start_index = (page_venues.number - 1) * results_per_page + 1
+    start_index = (page_forums.number - 1) * results_per_page + 1
     end_index = min(start_index + results_per_page - 1, total_results)
     return render(request, 'forums.html', {
-        'venues': page_venues,
+        'forums': page_forums,
         'page_numbers': page_numbers,
         'start_index': start_index,
         'end_index': end_index,
@@ -458,15 +458,15 @@ def forum(request, slug=None):
     })
     
 def create_forum(request):
-    form = VenueForm()
+    form = ForumForm()
     if request.method == 'POST':
-        form = VenueForm(request.POST, request.FILES)
+        form = ForumForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()   
-            messages.success(request, "The venue was successfuly created")
-            return redirect('users:venues')
+            messages.success(request, "The forum was successfuly created")
+            return redirect('users:forums')
         else:
-            messages.error(request, "Error creating venue. Kindly fix the highlighted errors and try again")
+            messages.error(request, "Error creating forum. Kindly fix the highlighted errors and try again")
     return render(request, 'create-forum.html', {
         'form': form,
         'page': 'forums',

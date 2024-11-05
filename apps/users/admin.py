@@ -22,6 +22,11 @@ class VenueAdmin(admin.ModelAdmin):
     list_display = ('name', 'location', 'capacity', 'created_at',)
     search_fields = ('name', 'location',)
 
+@admin.register(Forum)
+class ForumAdmin(admin.ModelAdmin):
+    list_display = ('name', 'image', 'created_at',)
+    search_fields = ('name', 'details',)
+
 @admin.register(Job)
 class JobAdmin(admin.ModelAdmin):
     list_display = ('title', 'company', 'deadline', 'location',)

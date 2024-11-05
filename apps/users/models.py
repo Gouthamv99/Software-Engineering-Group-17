@@ -145,6 +145,16 @@ class Venue(models.Model):
     def __str__(self):
         return self.name
     
+class Forum(models.Model):
+    name = models.CharField(max_length=100)
+    details = models.TextField(null=True)
+    image = models.ImageField(upload_to="forums/", null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+    
 class Speaker(models.Model):
     GENDER_CHOICES = (
         ('Male', 'Male'),
