@@ -1,7 +1,7 @@
-from django import forms
+from django import forms # type: ignore
 from apps.users.models import Account, Event, Speaker, Venue, Comment, Ticket, Job, Forum, ForumComment
-from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate # type: ignore
+from django.contrib.auth.forms import UserCreationForm # type: ignore
 
 class RegistrationForm(UserCreationForm):
     password1 = forms.CharField(
